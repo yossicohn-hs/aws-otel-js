@@ -65,7 +65,5 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "dependencies": {
-    "@opentelemetry/exporter-collector-grpc": "^0.12.0"
-  }
+  "dependencies": {}
 }
