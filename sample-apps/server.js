@@ -18,8 +18,6 @@
 const tracer = require('./tracer')('aws-otel-integ-test');
 // eslint-disable-next-line import/order
 const http = require('http');
-// const https = require('https');
-const request = require('request');
 const AWS = require('aws-sdk');
 const meter = require('./metric-emitter');
 
