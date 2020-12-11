@@ -49,12 +49,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.INTEG_TEST_AWS_KEY_SECRET }}
           aws-region: us-west-2
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: Build image
-        run : docker build --tag "${{ steps.login-ecr.outputs.registry }}/aws-observability/aws-otel-js-sample-app:${{ github.sha }}" --file sample-apps/Dockerfile .
+        run : docker build --tag "611364707713.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-otel-js-sample-app:${{ github.sha }}" --file sample-apps/Dockerfile .
       - name: Push to ECR
-        run : docker push "${{ steps.login-ecr.outputs.registry }}/aws-observability/aws-otel-js-sample-app:${{ github.sha }}"
+        run : docker push "611364707713.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-otel-js-sample-app:${{ github.sha }}"
       - name: Setup and Run Otel collector
         run: |
           docker images &&
@@ -73,7 +72,7 @@ jobs:
                      -e OTEL_EXPORTER_OTLP_ENDPOINT=172.17.0.1:55680 \
                      -e OTEL_RESOURCE_ATTRIBUTES="aws-otel-integ-test" \
                      -e OTEL_EXPORTER_OTLP_INSECURE=True \
-                     -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/aws-observability/aws-otel-js-sample-app:${{ github.sha }} &
+                     -p 8080:8080 611364707713.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-otel-js-sample-app:${{ github.sha }} &
       
       - name: Directory to checkout test framework
         run: mkdir test-framework 
