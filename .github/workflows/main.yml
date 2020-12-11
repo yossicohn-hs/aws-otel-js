@@ -59,6 +59,7 @@ jobs:
           push: true
       - name: Setup and Run Otel collector
         run: |
+          docker images &&
           docker-compose -f .github/collector/docker-compose.yml up &
         env:
           ACCESS_KEY: ${{ secrets.INTEG_TEST_AWS_KEY_ID }}
@@ -87,7 +88,7 @@ jobs:
           path: test-framework
 
       - name: Run testing suite
-        run: ./gradlew :validator:run --args='-c js-otel-trace-validation.yml --endpoint http://127.0.0.1:8080 --metric-namespace aws-otel-integ-test -t ${{ github.run_id }}-${{ github.run_number }}'
+        run: ./gradlew :validator:run --args='-c js-otel-trace-metric-validation.yml --endpoint http://127.0.0.1:8080 --metric-namespace aws-otel-integ-test -t ${{ github.run_id }}-${{ github.run_number }}'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.INTEG_TEST_AWS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.INTEG_TEST_AWS_KEY_SECRET }}
