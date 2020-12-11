@@ -28,7 +28,7 @@ jobs:
         env:
           CI: true
 
-  build_docker:
+  publish_and_test_app:
     name: Build docker image
     needs: build
     runs-on: ubuntu-latest
@@ -57,14 +57,6 @@ jobs:
           context: .
           tags: 611364707713.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-otel-js-sample-app:${{ github.sha }}
           push: true
-        
-  run_app_test_framework:
-    name: Run application against test framework
-    needs: [build_docker]
-    runs-on: ubuntu-latest
-    steps:
-      - name : Checkout Repository
-        uses: actions/checkout@v2
       - name: Setup and Run Otel collector
         run: |
           docker-compose -f .github/collector/docker-compose.yml up &
