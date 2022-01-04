@@ -26,3 +26,9 @@ The sample app exposes the following routes. Visit them in your browser, then go
 * localhost:8080/aws-sdk-call - Makes a traced request with the AWS SDK
 * localhost:8080/outgoing-http-call - Makes a traced downstream HTTP request
 
+
+
+Run Server:
+```commandline
+OTEL_EXPORTER_OTLP_INSECURE="True" OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:55680" LISTEN_ADDRESS=localhost:8080 node server.js
+```
