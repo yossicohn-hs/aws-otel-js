@@ -19,8 +19,6 @@
 const { diag, DiagConsoleLogger, DiagLogLevel } = require("@opentelemetry/api");
 // diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR);
 
-const my_meter = require('./create-a-meter');
-const { emitsPayloadMetric, emitReturnTimeMetric } = require('./get-meter-emit-functions')(my_meter)
 
 // NOTE: TracerProvider must be initialized before instrumented packages
 // (i.e. 'aws-sdk' and 'http') are imported.
@@ -73,8 +71,6 @@ function handleRequest(req, res) {
         }
 
         res.end(getTraceIdJson());
-        emitsPayloadMetric(res._contentLength + mimicPayLoadSize(), '/outgoing-http-call', res.statusCode);
-        emitReturnTimeMetric(new Date().getMilliseconds() - requestStartTime, '/outgoing-http-call', res.statusCode);
       });
     }
   } catch (err) {
